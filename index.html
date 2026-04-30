@@ -183,7 +183,12 @@ async function loadPosts() {
 // setInterval(loadPosts, 2000);
 
 // First load
-      showUser();
+  async function init() {
+    await showUser();
+    await loadPosts();
+}
+
+init();
 
   
 </script>
