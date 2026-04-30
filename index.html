@@ -51,7 +51,15 @@
     <div class="container">
         <h1>Student Hub</h1>
         <p>Communicate and share materials</p>
+<h3>Login</h3>
+<input type="email" id="email" placeholder="Email" />
+<br>
+<input type="password" id="password" placeholder="Password" />
+<br>
+<button onclick="signUp()">Sign Up</button>
+<button onclick="signIn()">Sign In</button>
 
+<p id="userInfo"></p>
         <h3>Posts</h3>
         <div id="posts"></div>
 
@@ -63,6 +71,40 @@
  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 
 <script>
+    // Sign up
+async function signUp() {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    const { error } = await supabaseClient.auth.signUp({
+        email,
+        password
+    });
+
+    if (error) {
+        alert(error.message);
+    } else {
+        alert("Check your email!");
+    }
+}
+
+// Sign in
+async function signIn() {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    const { data, error } = await supabaseClient.auth.signInWithPassword({
+        email,
+        password
+    });
+
+    if (error) {
+        alert(error.message);
+    } else {
+        document.getElementById("userInfo").innerText =
+            "Logged in as: " + data.user.email;
+    }
+}
 const supabaseUrl = "https://fmlitydfcydcnnumhmyo.supabase.co";
 const supabaseKey = "sb_publishable_WX8hbbfYCzNZIVqvq5Wsjw_LrABY0eZ";
 
