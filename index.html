@@ -92,7 +92,9 @@ async function loadPosts() {
     const postsDiv = document.getElementById("posts");
     postsDiv.innerHTML = "";
 
-    data.forEach(post => {
+    dif (!data) return;
+
+data.forEach(post => {
         let div = document.createElement("div");
         div.className = "post";
         div.innerText = post.text;
