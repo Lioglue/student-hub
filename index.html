@@ -60,13 +60,12 @@
         <button onclick="addPost()">Post</button>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-
+   <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 <script>
 const supabaseUrl = "https://fmlitydfcydcnnumhmyo.supabase.co/rest/v1/";
 const supabaseKey = "sb_publishable_WX8hbbfYCzNZIVqvq5Wsjw_LrABY0eZ";
 
-const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
 
 // Add post to database
 async function addPost() {
