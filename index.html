@@ -60,6 +60,8 @@
 <button onclick="signIn()">Sign In</button>
 
 <p id="userInfo"></p>
+        <p id="userEmail"></p>
+<button onclick="logout()">Logout</button>
         <h3>Posts</h3>
         <div id="posts"></div>
 
@@ -71,6 +73,17 @@
  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 
 <script>
+    async function showUser() {
+    const { data: { user } } = await supabaseClient.auth.getUser();
+
+    if (user) {
+        document.getElementById("userEmail").innerText = user.email;
+    }
+}
+    async function logout() {
+    await supabaseClient.auth.signOut();
+    location.reload();
+}
     // Sign up
 async function signUp() {
     const email = document.getElementById("email").value;
@@ -170,7 +183,9 @@ async function loadPosts() {
 setInterval(loadPosts, 2000);
 
 // First load
+      showUser();
 loadPosts();
+  
 </script>
 
 </body>
