@@ -117,9 +117,18 @@ async function addPost() {
 
     if (text === "") return;
 
+    // ✅ get logged-in user
+    const { data: { user } } = await supabaseClient.auth.getUser();
+
+    if (!user) {
+        alert("You must be logged in");
+        return;
+    }
+
+    // ✅ insert with user_id
     const { error } = await supabaseClient
         .from("posts")
-        .insert([{ text: text }]);
+        .insert([{ text: text, user_id: user.id }]);
 
     if (error) {
         console.error(error);
@@ -127,23 +136,27 @@ async function addPost() {
     }
 
     input.value = "";
-    await loadPosts(); // force refresh
+    loadPosts();
 }
 
 // Load posts
 async function loadPosts() {
+    let postsDiv = document.getElementById("posts");
+    postsDiv.innerHTML = "";
+
+    // ✅ get logged-in user
+    const { data: { user } } = await supabaseClient.auth.getUser();
+
+    if (!user) return;
+
+    // ✅ only load this user's posts
     const { data, error } = await supabaseClient
         .from("posts")
         .select("*")
+        .eq("user_id", user.id) // 👈 THIS LINE
         .order("created_at", { ascending: true });
 
-    if (error) {
-        console.error(error);
-        return;
-    }
-
-    const postsDiv = document.getElementById("posts");
-    postsDiv.innerHTML = "";
+    if (!data) return;
 
     data.forEach(post => {
         let div = document.createElement("div");
