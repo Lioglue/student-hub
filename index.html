@@ -60,22 +60,50 @@
         <button onclick="addPost()">Post</button>
     </div>
 
-    <script>
-        function addPost() {
-            let input = document.getElementById("postInput");
-            let postText = input.value;
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 
-            if (postText === "") return;
+<script>
+const supabaseUrl = "https://fmlitydfcydcnnumhmyo.supabase.co/rest/v1/";
+const supabaseKey = "sb_publishable_WX8hbbfYCzNZIVqvq5Wsjw_LrABY0eZ";
 
-            let postDiv = document.createElement("div");
-            postDiv.className = "post";
-            postDiv.innerText = postText;
+const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
-            document.getElementById("posts").appendChild(postDiv);
+// Add post to database
+async function addPost() {
+    let input = document.getElementById("postInput");
+    let text = input.value;
 
-            input.value = "";
-        }
-    </script>
+    if (text === "") return;
+
+    await supabaseClient
+        .from("posts")
+        .insert([{ text: text }]);
+
+    input.value = "";
+    loadPosts();
+}
+
+// Load posts from database
+async function loadPosts() {
+    const { data, error } = await supabaseClient
+        .from("posts")
+        .select("*")
+        .order("created_at", { ascending: true });
+
+    const postsDiv = document.getElementById("posts");
+    postsDiv.innerHTML = "";
+
+    data.forEach(post => {
+        let div = document.createElement("div");
+        div.className = "post";
+        div.innerText = post.text;
+        postsDiv.appendChild(div);
+    });
+}
+
+// Load posts when page opens
+loadPosts();
+</script>
 
 </body>
 </html>
