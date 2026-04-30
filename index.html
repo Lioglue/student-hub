@@ -60,43 +60,50 @@
         <button onclick="addPost()">Post</button>
     </div>
 
-   <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+
 <script>
 const supabaseUrl = "https://fmlitydfcydcnnumhmyo.supabase.co/rest/v1/";
 const supabaseKey = "sb_publishable_WX8hbbfYCzNZIVqvq5Wsjw_LrABY0eZ";
 
 const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
 
-// Add post to database
+// Add post
 async function addPost() {
     let input = document.getElementById("postInput");
     let text = input.value;
 
     if (text === "") return;
 
-    await supabaseClient
+    const { error } = await supabaseClient
         .from("posts")
         .insert([{ text: text }]);
 
+    if (error) {
+        console.error(error);
+        return;
+    }
+
     input.value = "";
-    loadPosts();
+    await loadPosts(); // force refresh
 }
 
-// Load posts from database
+// Load posts
 async function loadPosts() {
     const { data, error } = await supabaseClient
         .from("posts")
         .select("*")
         .order("created_at", { ascending: true });
 
+    if (error) {
+        console.error(error);
+        return;
+    }
+
     const postsDiv = document.getElementById("posts");
     postsDiv.innerHTML = "";
 
-    dif (!data) return;
-
-if (!data) return;
-
-data.forEach(post => {
+    data.forEach(post => {
         let div = document.createElement("div");
         div.className = "post";
         div.innerText = post.text;
@@ -104,7 +111,10 @@ data.forEach(post => {
     });
 }
 
-// Load posts when page opens
+// Auto refresh every 2 seconds (simple real-time)
+setInterval(loadPosts, 2000);
+
+// First load
 loadPosts();
 </script>
 
