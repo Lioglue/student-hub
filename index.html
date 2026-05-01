@@ -211,17 +211,20 @@ async function loadPosts() {
 // Auto refresh every 2 seconds (simple real-time)
     //delet the text function for physics website haha it is fkremaryam
     async function deletePost(id) {
+    console.log("Delete clicked:", id); // ✅ DEBUG
+
     const { error } = await supabaseClient
         .from("posts")
         .delete()
         .eq("id", id);
 
     if (error) {
+        console.error("DELETE ERROR:", error);
         alert(error.message);
         return;
     }
 
-    loadPosts(); // refresh UI
+    loadPosts();
 }
 // setInterval(loadPosts, 2000);
 
