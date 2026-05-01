@@ -171,30 +171,30 @@ async function addPost() {
 }
 
 // Load posts
+let loadedPostIds = new Set();
+
 async function loadPosts() {
     let postsDiv = document.getElementById("posts");
-    postsDiv.innerHTML = "";
 
-    // ✅ get logged-in user
-    const { data: { user } } = await supabaseClient.auth.getUser();
-
-    if (!user) return;
-
-    // ✅ only load this user's posts
     const { data, error } = await supabaseClient
         .from("posts")
         .select("*")
-       // .eq("user_id", user.id) // 👈 THIS LINE
-        .order("created_at", { ascending: true });
+        .order("created_at", { ascending: true })
+        .limit(20);
 
     if (!data) return;
 
-data.forEach(post => {
-    let div = document.createElement("div");
-    div.className = "post";
-    div.innerText = post.name + ": " + post.text; // ✅ FIX
-    postsDiv.appendChild(div);
-});
+    data.forEach(post => {
+        if (loadedPostIds.has(post.id)) return; // ✅ skip existing
+
+        loadedPostIds.add(post.id);
+
+        let div = document.createElement("div");
+        div.className = "post";
+        div.innerText = (post.name || "Unknown") + ": " + post.text;
+
+        postsDiv.appendChild(div);
+    });
 }
 
 // Auto refresh every 2 seconds (simple real-time)
