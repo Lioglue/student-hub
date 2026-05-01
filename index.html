@@ -132,12 +132,13 @@ const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
 
 // Add post
 async function addPost() {
+    console.log("Button clicked"); // ✅ debug
+
     let input = document.getElementById("postInput");
     let text = input.value;
 
     if (text === "") return;
 
-    // ✅ get logged-in user
     const { data: { user } } = await supabaseClient.auth.getUser();
 
     if (!user) {
@@ -145,10 +146,8 @@ async function addPost() {
         return;
     }
 
-    // ✅ get name from metadata
-    const name = user.user_metadata?.name || "Unknown";
+    const name = user.user_metadata?.name || "User";
 
-    // ✅ insert post
     const { error } = await supabaseClient
         .from("posts")
         .insert([{
@@ -157,8 +156,10 @@ async function addPost() {
             name: name
         }]);
 
+    // ✅ improved error handling
     if (error) {
-        console.error(error);
+        console.error("INSERT ERROR:", error);
+        alert(error.message);
         return;
     }
 
