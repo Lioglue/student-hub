@@ -173,13 +173,12 @@ async function addPost() {
 // Load posts
 async function loadPosts() {
     let postsDiv = document.getElementById("posts");
-    postsDiv.innerHTML = "";
+    postsDiv.innerHTML = ""; // ✅ clear everything (simple & reliable)
 
     const { data, error } = await supabaseClient
         .from("posts")
         .select("*")
-        .order("created_at", { ascending: true })
-        .limit(20);
+        .order("created_at", { ascending: true });
 
     if (!data) return;
 
