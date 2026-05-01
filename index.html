@@ -171,10 +171,9 @@ async function addPost() {
 }
 
 // Load posts
-let loadedPostIds = new Set();
-
 async function loadPosts() {
     let postsDiv = document.getElementById("posts");
+    postsDiv.innerHTML = "";
 
     const { data, error } = await supabaseClient
         .from("posts")
@@ -185,10 +184,6 @@ async function loadPosts() {
     if (!data) return;
 
     data.forEach(post => {
-        if (loadedPostIds.has(post.id)) return; // ✅ skip existing
-
-        loadedPostIds.add(post.id);
-
         let div = document.createElement("div");
         div.className = "post";
         div.innerText = (post.name || "Unknown") + ": " + post.text;
