@@ -52,6 +52,7 @@
         <h1>Student Hub</h1>
         <p>Communicate and share materials</p>
 <h3>Login</h3>
+        <input type="text" id="name" placeholder="Your name" />
 <input type="email" id="email" placeholder="Email" />
 <br>
 <input type="password" id="password" placeholder="Password" />
@@ -88,16 +89,22 @@
 async function signUp() {
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
+    const name = document.getElementById("name").value;
 
     const { error } = await supabaseClient.auth.signUp({
         email,
-        password
+        password,
+        options: {
+            data: {
+                name: name
+            }
+        }
     });
 
     if (error) {
         alert(error.message);
     } else {
-        alert("Check your email!");
+        alert("Account created!");
     }
 }
 
@@ -138,10 +145,17 @@ async function addPost() {
         return;
     }
 
-    // ✅ insert with user_id
+    // ✅ get name from metadata
+    const name = user.user_metadata?.name || "Unknown";
+
+    // ✅ insert post
     const { error } = await supabaseClient
         .from("posts")
-        .insert([{ text: text, user_id: user.id }]);
+        .insert([{
+            text: text,
+            user_id: user.id,
+            name: name
+        }]);
 
     if (error) {
         console.error(error);
@@ -166,7 +180,7 @@ async function loadPosts() {
     const { data, error } = await supabaseClient
         .from("posts")
         .select("*")
-        .eq("user_id", user.id) // 👈 THIS LINE
+       // .eq("user_id", user.id) // 👈 THIS LINE
         .order("created_at", { ascending: true });
 
     if (!data) return;
