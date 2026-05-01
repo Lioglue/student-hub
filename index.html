@@ -192,18 +192,37 @@ async function loadPosts() {
     postsDiv.innerHTML = "";
 
     data.forEach(post => {
-        let div = document.createElement("div");
-        div.className = "post";
-        div.innerHTML = `<strong>${post.name || "Unknown"}:</strong> ${post.text}`;
+    let div = document.createElement("div");
+    div.className = "post";
 
-        postsDiv.appendChild(div);
-    });
+    div.innerHTML = `
+        <strong>${post.name || "Unknown"}:</strong> ${post.text}
+        <br>
+        <button onclick="deletePost('${post.id}')">Delete</button>
+    `;
+
+    postsDiv.appendChild(div);
+});
 
     // ✅ auto scroll to bottom
     postsDiv.scrollTop = postsDiv.scrollHeight;
 }
 
 // Auto refresh every 2 seconds (simple real-time)
+    //delet the text function for physics website haha it is fkremaryam
+    async function deletePost(id) {
+    const { error } = await supabaseClient
+        .from("posts")
+        .delete()
+        .eq("id", id);
+
+    if (error) {
+        alert(error.message);
+        return;
+    }
+
+    loadPosts(); // refresh UI
+}
 // setInterval(loadPosts, 2000);
 
 // First load
