@@ -123,6 +123,9 @@ async function signIn() {
     } else {
         document.getElementById("userInfo").innerText =
             "Logged in as: " + data.user.email;
+
+        await showUser();   // ✅ refresh user display
+        await loadPosts();  // ✅ load posts immediately
     }
 }
 const supabaseUrl = "https://fmlitydfcydcnnumhmyo.supabase.co";
@@ -186,12 +189,12 @@ async function loadPosts() {
 
     if (!data) return;
 
-    data.forEach(post => {
-        let div = document.createElement("div");
-        div.className = "post";
-        div.innerText = post.text;
-        postsDiv.appendChild(div);
-    });
+data.forEach(post => {
+    let div = document.createElement("div");
+    div.className = "post";
+    div.innerText = post.name + ": " + post.text; // ✅ FIX
+    postsDiv.appendChild(div);
+});
 }
 
 // Auto refresh every 2 seconds (simple real-time)
