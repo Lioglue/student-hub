@@ -171,9 +171,10 @@ async function addPost() {
 }
 
 // Load posts
+let lastPostCount = 0;
+
 async function loadPosts() {
     let postsDiv = document.getElementById("posts");
-    postsDiv.innerHTML = ""; // ✅ clear everything (simple & reliable)
 
     const { data, error } = await supabaseClient
         .from("posts")
@@ -182,13 +183,24 @@ async function loadPosts() {
 
     if (!data) return;
 
+    // ✅ only update if new posts added
+    if (data.length === lastPostCount) return;
+
+    lastPostCount = data.length;
+
+    // ✅ redraw only when needed
+    postsDiv.innerHTML = "";
+
     data.forEach(post => {
         let div = document.createElement("div");
         div.className = "post";
-        div.innerText = (post.name || "Unknown") + ": " + post.text;
+        div.innerHTML = `<strong>${post.name || "Unknown"}:</strong> ${post.text}`;
 
         postsDiv.appendChild(div);
     });
+
+    // ✅ auto scroll to bottom
+    postsDiv.scrollTop = postsDiv.scrollHeight;
 }
 
 // Auto refresh every 2 seconds (simple real-time)
