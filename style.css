@@ -179,6 +179,7 @@ body{
 
     .menu-btn{
         display:block;
+        z-index:1001;
     }
 
     .nav-links{
@@ -194,17 +195,27 @@ body{
 
         backdrop-filter:blur(14px);
 
+        display:flex;
         flex-direction:column;
 
-        padding-top:90px;
+        align-items:flex-start;
+
+        padding:90px 30px;
 
         transition:0.4s;
 
         gap:25px;
+
+        z-index:999;
     }
 
     .nav-links.active{
         right:0;
+    }
+
+    .nav-links a{
+        font-size:20px;
+        width:100%;
     }
 
     .close-btn{
@@ -220,14 +231,6 @@ body{
     }
 
 }
-
-
-
-
-
-
-
-
 
 /* LOGIN PAGE */
 
