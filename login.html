@@ -1,1 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Student Hub</title>
 
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+</head>
+<body class="login-page">
+
+    <!-- BACK BUTTON -->
+
+    <a href="index.html" class="back-home">
+        ← Home
+    </a>
+
+    <!-- LOGIN CONTAINER -->
+
+    <div class="auth-container">
+
+        <div class="auth-card">
+
+            <h1>StudentHub</h1>
+
+            <p>
+                Login and continue your student journey
+            </p>
+
+            <input
+                type="text"
+                id="name"
+                placeholder="Your Name"
+            >
+
+            <input
+                type="email"
+                id="email"
+                placeholder="Email"
+            >
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Password"
+            >
+
+            <button onclick="signUp()" class="signup-btn">
+                Sign Up
+            </button>
+
+            <button onclick="signIn()" class="signin-btn">
+                Sign In
+            </button>
+
+            <p id="message"></p>
+
+        </div>
+
+    </div>
+
+    <script src="auth.js"></script>
+
+</body>
+</html>
