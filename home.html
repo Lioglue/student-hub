@@ -1,1 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>StudentHub</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:linear-gradient(135deg,#0f172a,#1e3a8a,#2563eb);
+    color:white;
+    min-height:100vh;
+    overflow-x:hidden;
+}
+
+/* NAVBAR */
+
+.navbar{
+    width:100%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 8%;
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid rgba(255,255,255,0.1);
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+.logo{
+    font-size:30px;
+    font-weight:700;
+    color:white;
+}
+
+.logo span{
+    color:#60a5fa;
+}
+
+.nav-links{
+    display:flex;
+    gap:30px;
+}
+
+.nav-links a{
+    text-decoration:none;
+    color:white;
+    font-weight:500;
+    transition:0.3s;
+}
+
+.nav-links a:hover{
+    color:#93c5fd;
+}
+
+.login-btn{
+    background:#3b82f6;
+    border:none;
+    color:white;
+    padding:12px 24px;
+    border-radius:12px;
+    cursor:pointer;
+    font-size:15px;
+    font-weight:600;
+    transition:0.3s;
+}
+
+.login-btn:hover{
+    background:#2563eb;
+    transform:translateY(-2px);
+}
+
+/* HERO SECTION */
+
+.hero{
+    width:100%;
+    min-height:90vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:60px 8%;
+}
+
+.hero-container{
+    width:100%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:60px;
+}
+
+/* LEFT */
+
+.hero-text{
+    flex:1;
+}
+
+.hero-text h1{
+    font-size:65px;
+    line-height:1.2;
+    margin-bottom:25px;
+}
+
+.hero-text h1 span{
+    color:#93c5fd;
+}
+
+.hero-text p{
+    font-size:18px;
+    line-height:1.9;
+    color:#dbeafe;
+    margin-bottom:35px;
+}
+
+.hero-buttons{
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+.primary-btn{
+    background:#3b82f6;
+    border:none;
+    color:white;
+    padding:16px 32px;
+    border-radius:14px;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.primary-btn:hover{
+    background:#2563eb;
+    transform:translateY(-3px);
+}
+
+.secondary-btn{
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.15);
+    color:white;
+    padding:16px 32px;
+    border-radius:14px;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.secondary-btn:hover{
+    background:rgba(255,255,255,0.15);
+}
+
+/* RIGHT CARD */
+
+.hero-card{
+    flex:1;
+    display:flex;
+    justify-content:center;
+}
+
+.card{
+    width:100%;
+    max-width:420px;
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.1);
+    backdrop-filter:blur(15px);
+    border-radius:30px;
+    padding:35px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.3);
+}
+
+.card h2{
+    margin-bottom:25px;
+    font-size:30px;
+}
+
+.feature{
+    background:rgba(255,255,255,0.06);
+    padding:20px;
+    border-radius:18px;
+    margin-top:18px;
+    transition:0.3s;
+}
+
+.feature:hover{
+    transform:translateY(-4px);
+    background:rgba(255,255,255,0.12);
+}
+
+.feature h3{
+    margin-bottom:10px;
+    font-size:20px;
+}
+
+.feature p{
+    color:#dbeafe;
+    font-size:14px;
+    line-height:1.6;
+}
+
+/* FOOTER */
+
+.footer{
+    text-align:center;
+    padding:25px;
+    color:#dbeafe;
+    font-size:14px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:900px){
+
+    .hero-container{
+        flex-direction:column;
+        text-align:center;
+    }
+
+    .hero-text h1{
+        font-size:48px;
+    }
+
+    .hero-buttons{
+        justify-content:center;
+    }
+
+    .nav-links{
+        display:none;
+    }
+
+}
+
+@media(max-width:600px){
+
+    .navbar{
+        padding:15px 5%;
+    }
+
+    .hero{
+        padding:40px 5%;
+    }
+
+    .hero-text h1{
+        font-size:34px;
+    }
+
+    .hero-text p{
+        font-size:15px;
+    }
+
+    .primary-btn,
+    .secondary-btn,
+    .login-btn{
+        width:100%;
+    }
+
+    .hero-buttons{
+        flex-direction:column;
+    }
+
+    .card{
+        padding:25px;
+    }
+
+    .logo{
+        font-size:24px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        Student<span>Hub</span>
+    </div>
+
+    <div class="nav-links">
+        <a href="#">Home</a>
+        <a href="#">Marketplace</a>
+        <a href="#">Freelancing</a>
+        <a href="#">Community</a>
+        <a href="#">Contact</a>
+    </div>
+
+    <button class="login-btn">Login</button>
+
+</nav>
+
+<!-- HERO SECTION -->
+
+<section class="hero">
+
+    <div class="hero-container">
+
+        <!-- LEFT SIDE -->
+
+        <div class="hero-text">
+
+            <h1>
+                Empowering Students Through
+                <span>Innovation</span>
+            </h1>
+
+            <p>
+                StudentHub is a professional digital ecosystem designed for university
+                and high school students to communicate, collaborate, freelance,
+                share academic resources, discover opportunities, and build powerful networks.
+            </p>
+
+            <div class="hero-buttons">
+                <button class="primary-btn">Get Started</button>
+                <button class="secondary-btn">Explore Platform</button>
+            </div>
+
+        </div>
+
+        <!-- RIGHT SIDE -->
+
+        <div class="hero-card">
+
+            <div class="card">
+
+                <h2>Platform Features</h2>
+
+                <div class="feature">
+                    <h3>Freelancing Marketplace</h3>
+                    <p>
+                        Students can showcase skills, find clients,
+                        and earn through digital services.
+                    </p>
+                </div>
+
+                <div class="feature">
+                    <h3>Academic Collaboration</h3>
+                    <p>
+                        Share notes, communicate in groups,
+                        and exchange innovative ideas.
+                    </p>
+                </div>
+
+                <div class="feature">
+                    <h3>Professional Networking</h3>
+                    <p>
+                        Connect with students, startups,
+                        mentors, and future collaborators.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- FOOTER -->
+
+<div class="footer">
+    © 2026 StudentHub. All rights reserved.
+</div>
+
+</body>
+</html>
