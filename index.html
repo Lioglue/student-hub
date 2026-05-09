@@ -1,243 +1,99 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Hub</title>
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f6f8;
-            text-align: center;
-        }
-
-        .container {
-            width: 400px;
-            margin: auto;
-            background: white;
-            padding: 20px;
-            margin-top: 50px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
-        }
-
-        input {
-            width: 70%;
-            padding: 10px;
-            margin-top: 10px;
-        }
-
-        button {
-            padding: 10px 15px;
-            margin-top: 10px;
-            cursor: pointer;
-        }
-
-        #posts {
-            margin-top: 20px;
-            text-align: left;
-        }
-
-        .post {
-            background: #e3f2fd;
-            padding: 10px;
-            margin-top: 10px;
-            border-radius: 5px;
-        }
-    </style>
-
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="container">
-        <h1>Student Hub</h1>
-        <p>Communicate and share materials</p>
-<h3>Login</h3>
-        <input type="text" id="name" placeholder="Your name" />
-<input type="email" id="email" placeholder="Email" />
-<br>
-<input type="password" id="password" placeholder="Password" />
-<br>
-<button onclick="signUp()">Sign Up</button>
-<button onclick="signIn()">Sign In</button>
+    <!-- NAVBAR -->
 
-<p id="userInfo"></p>
-        <p id="userEmail"></p>
-<button onclick="logout()">Logout</button>
-        <h3>Posts</h3>
-        <div id="posts"></div>
+    <nav class="navbar">
 
-        <input type="text" id="postInput" placeholder="Write something..." />
-        <br>
-        <button onclick="addPost()">Post</button>
-    </div>
+        <div class="logo">
+            Student<span>Hub</span>
+        </div>
 
- <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+        <!-- NAVIGATION -->
 
-<script>
-    async function showUser() {
-    const { data: { user } } = await supabaseClient.auth.getUser();
+        <div class="nav-links" id="navLinks">
 
-    if (user) {
-        document.getElementById("userEmail").innerText = user.email;
-    }
-}
-    async function logout() {
-    await supabaseClient.auth.signOut();
-    location.reload();
-}
-    // Sign up
-async function signUp() {
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-    const name = document.getElementById("name").value;
+            <div class="close-btn" onclick="toggleMenu()">
+                ✕
+            </div>
 
-    const { error } = await supabaseClient.auth.signUp({
-        email,
-        password,
-        options: {
-            data: {
-                name: name
-            }
-        }
-    });
+            <a href="#">Home</a>
+            <a href="#">Marketplace</a>
+            <a href="#">Freelancing</a>
+            <a href="#">Community</a>
+            <a href="login.html" class="login-btn">
+                Login
+            </a>
 
-    if (error) {
-        alert(error.message);
-    } else {
-        alert("Account created!");
-    }
-}
+        </div>
 
-// Sign in
-async function signIn() {
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+        <!-- MOBILE BUTTON -->
 
-    const { data, error } = await supabaseClient.auth.signInWithPassword({
-        email,
-        password
-    });
+        <div class="menu-btn" onclick="toggleMenu()">
+            ☰
+        </div>
 
-    if (error) {
-        alert(error.message);
-    } else {
-        document.getElementById("userInfo").innerText =
-            "Logged in as: " + data.user.email;
+    </nav>
 
-        await showUser();   // ✅ refresh user display
-        await loadPosts();  // ✅ load posts immediately
-    }
-}
-const supabaseUrl = "https://fmlitydfcydcnnumhmyo.supabase.co";
-const supabaseKey = "sb_publishable_WX8hbbfYCzNZIVqvq5Wsjw_LrABY0eZ";
+    <!-- HERO SECTION -->
 
-const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+    <section class="hero">
 
-// Add post
-async function addPost() {
-    console.log("Button clicked"); // ✅ debug
+        <div class="hero-content">
 
-    let input = document.getElementById("postInput");
-    let text = input.value;
+            <h1>
+                The Future Marketplace For Students
+            </h1>
 
-    if (text === "") return;
+            <p>
+                Connect university and high school students with freelancing,
+                innovation, communication, jobs, academic tools, and opportunities.
+            </p>
 
-    const { data: { user } } = await supabaseClient.auth.getUser();
+            <a href="login.html" class="hero-btn">
+                Get Started
+            </a>
 
-    if (!user) {
-        alert("You must be logged in");
-        return;
-    }
+        </div>
 
-    const name = user.user_metadata?.name || "User";
+    </section>
 
-    const { error } = await supabaseClient
-        .from("posts")
-        .insert([{
-            text: text,
-            user_id: user.id,
-            name: name
-        }]);
+    <!-- FEATURES -->
 
-    // ✅ improved error handling
-    if (error) {
-        console.error("INSERT ERROR:", error);
-        alert(error.message);
-        return;
-    }
+    <section class="features">
 
-    input.value = "";
-    loadPosts();
-}
+        <div class="card">
+            <h2>Freelancing</h2>
+            <p>
+                Students can work, earn money, and build real experience.
+            </p>
+        </div>
 
-// Load posts
-let lastPostCount = 0;
+        <div class="card">
+            <h2>Marketplace</h2>
+            <p>
+                Buy and sell academic materials, skills, and digital services.
+            </p>
+        </div>
 
-async function loadPosts() {
-    let postsDiv = document.getElementById("posts");
+        <div class="card">
+            <h2>Community</h2>
+            <p>
+                Share ideas, innovations, and communicate with students worldwide.
+            </p>
+        </div>
 
-    const { data, error } = await supabaseClient
-        .from("posts")
-        .select("*")
-        .order("created_at", { ascending: true });
+    </section>
 
-    if (!data) return;
-
-    // ✅ only update if new posts added
-    if (data.length === lastPostCount) return;
-
-    lastPostCount = data.length;
-
-    // ✅ redraw only when needed
-    postsDiv.innerHTML = "";
-
-    data.forEach(post => {
-    let div = document.createElement("div");
-    div.className = "post";
-
-    div.innerHTML = `
-        <strong>${post.name || "Unknown"}:</strong> ${post.text}
-        <br>
-        <button onclick="deletePost('${post.id}')">Delete</button>
-    `;
-
-    postsDiv.appendChild(div);
-});
-
-    // ✅ auto scroll to bottom
-    postsDiv.scrollTop = postsDiv.scrollHeight;
-}
-
-// Auto refresh every 2 seconds (simple real-time)
-    //delet the text function for physics website haha it is fkremaryam
-    async function deletePost(id) {
-    console.log("Delete clicked:", id); // ✅ DEBUG
-
-    const { error } = await supabaseClient
-        .from("posts")
-        .delete()
-        .eq("id", id);
-
-    if (error) {
-        console.error("DELETE ERROR:", error);
-        alert(error.message);
-        return;
-    }
-
-    loadPosts();
-}
-// setInterval(loadPosts, 2000);
-
-// First load
-  async function init() {
-    await showUser();
-    await loadPosts();
-}
-
-init();
-
-  
-</script>
+    <script src="app.js"></script>
 
 </body>
 </html>
