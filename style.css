@@ -220,3 +220,145 @@ body{
     }
 
 }
+
+
+
+
+
+
+
+
+
+/* LOGIN PAGE */
+
+.login-page{
+    min-height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:
+    linear-gradient(
+        rgba(15,23,42,0.8),
+        rgba(15,23,42,0.9)
+    ),
+    url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1400');
+
+    background-size:cover;
+    background-position:center;
+}
+
+/* BACK BUTTON */
+
+.back-home{
+    position:absolute;
+    top:30px;
+    left:30px;
+
+    color:white;
+    text-decoration:none;
+
+    background:rgba(255,255,255,0.1);
+
+    padding:10px 20px;
+
+    border-radius:10px;
+
+    backdrop-filter:blur(10px);
+}
+
+/* AUTH CONTAINER */
+
+.auth-container{
+    width:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.auth-card{
+
+    width:100%;
+    max-width:420px;
+
+    background:rgba(255,255,255,0.08);
+
+    border:1px solid rgba(255,255,255,0.1);
+
+    backdrop-filter:blur(14px);
+
+    border-radius:20px;
+
+    padding:40px;
+
+    text-align:center;
+}
+
+.auth-card h1{
+    font-size:38px;
+    margin-bottom:10px;
+}
+
+.auth-card p{
+    color:#cbd5e1;
+    margin-bottom:25px;
+}
+
+.auth-card input{
+    width:100%;
+
+    padding:15px;
+
+    margin-bottom:15px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:rgba(255,255,255,0.1);
+
+    color:white;
+
+    font-size:16px;
+}
+
+.auth-card input::placeholder{
+    color:#cbd5e1;
+}
+
+.signup-btn,
+.signin-btn{
+
+    width:100%;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:10px;
+
+    font-size:16px;
+
+    cursor:pointer;
+
+    margin-top:10px;
+
+    transition:0.3s;
+}
+
+.signup-btn{
+    background:#38bdf8;
+    color:white;
+}
+
+.signin-btn{
+    background:white;
+    color:#0f172a;
+}
+
+.signup-btn:hover,
+.signin-btn:hover{
+    transform:scale(1.02);
+}
