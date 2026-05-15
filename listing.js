@@ -53,3 +53,6 @@ async function addListing(){
     }
 
 }
+
+const whatsapp =
+document.getElementById("whatsapp").value;
