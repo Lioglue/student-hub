@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+    <title>Add Listing</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body class="login-page">
+
+    <!-- BACK BUTTON -->
+
+    <a href="index.html" class="back-home">
+        ← Home
+    </a>
+
+    <!-- FORM -->
+
+    <div class="auth-container">
+
+        <div class="auth-card">
+
+            <h1>Add Product</h1>
+
+            <p>
+                Sell or rent student materials
+            </p>
+
+            <!-- TITLE -->
+
+            <input
+                type="text"
+                id="title"
+                placeholder="Product Title"
+            >
+
+            <!-- DESCRIPTION -->
+
+            <input
+                type="text"
+                id="description"
+                placeholder="Description"
+            >
+
+            <!-- PRICE -->
+
+            <input
+                type="number"
+                id="price"
+                placeholder="Price"
+            >
+
+            <!-- IMAGE -->
+
+            <input
+                type="text"
+                id="image"
+                placeholder="Image URL"
+            >
+
+            <!-- TYPE -->
+
+            <select id="type" class="listing-select">
+
+                <option value="sale">
+                    For Sale
+                </option>
+
+                <option value="rent">
+                    For Rent
+                </option>
+
+            </select>
+
+            <!-- BUTTON -->
+
+            <button
+                onclick="addListing()"
+                class="signup-btn">
+
+                Publish Listing
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- SUPABASE -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+    <script src="listing.js"></script>
+
+</body>
+</html>
