@@ -4,55 +4,51 @@ const supabaseUrl =
 const supabaseKey =
 'sb_publishable_WX8hbbfYCzNZIVqvq5Wsjw_LrABY0eZ';
 
-const client = window.supabase.createClient(
+const client =
+window.supabase.createClient(
     supabaseUrl,
     supabaseKey
 );
 
-/* ADD LISTING */
-
 async function addListing(){
 
     const title =
-        document.getElementById("title").value;
+    document.getElementById("title").value;
 
     const description =
-        document.getElementById("description").value;
+    document.getElementById("description").value;
 
     const price =
-        document.getElementById("price").value;
+    document.getElementById("price").value;
 
     const image =
-        document.getElementById("image").value;
+    document.getElementById("image").value;
 
     const type =
-        document.getElementById("type").value;
+    document.getElementById("type").value;
 
-    /* INSERT INTO DATABASE */
-
-    const { data, error } =
-        await supabase
-        .from("listings")
-        .insert([
-            {
-                title: title,
-                description: description,
-                price: price,
-                image_url: image,
-                type: type
-            }
-        ]);
+    const { error } =
+    await client
+    .from("listings")
+    .insert([
+        {
+            title: title,
+            description: description,
+            price: price,
+            image_url: image,
+            type: type
+        }
+    ]);
 
     if(error){
 
+        console.log(error);
+
         alert(error.message);
 
-    }
-    else{
+    }else{
 
-        alert("Listing Published Successfully");
-
-        window.location.href = "index.html";
+        alert("Listing Published!");
 
     }
 
